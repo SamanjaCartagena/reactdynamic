@@ -1,15 +1,18 @@
 import logo from './logo.svg';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Home } from './components/Home';
-import { About } from './components/About';
 import { Navbar } from './components/Navbar';
 import { NoMatch } from './components/NoMatch';
 import { Products } from './components/Products';
 import { OrderSummary } from './components/OrderSummary';
 import { FeaturedProducts } from './components/FeaturedProducts';
 import { NewProducts } from './components/NewProducts';
-
+import { Users } from './components/Users';
+import { UserDetails } from './components/UserDetails'; 
+import { Admin } from './components/Admin';
 import './App.css';
+const LazyAbout = React.lazy(() => import('./components/About'));
 
 function App() {
   return (
@@ -17,7 +20,7 @@ function App() {
     <Navbar />
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/about' element={<About />} /> 
+      <Route path='/about' element={<LazyAbout />} /> 
       <Route path='/order-summary' element={<OrderSummary />} />
       <Route path='/products' element={<Products />} >
         <Route index element={<FeaturedProducts />} />
@@ -25,8 +28,10 @@ function App() {
         <Route path='featured' element={<FeaturedProducts />} />
         <Route path='new' element={<NewProducts />} />
       </Route>
-        <Route path='featured' element={<FeaturedProducts />} />
-        <Route path='new' element={<NewProducts />} />
+      <Route path='/users' element={<Users />} >
+      <Route path=':userId' element={<UserDetails />} />
+      <Route path='admin' element={<Admin />} />
+      </Route>
       <Route path='*' element={<NoMatch />} />
     </Routes>
     </>
